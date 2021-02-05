@@ -1,10 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 
 import * as location from "expo-location";
 
-import { WeatherInfo, UnitPicker } from "./src/components";
+import { WeatherInfo, UnitPicker, ReloadIcon } from "./src/components";
 
 const WEATHER_API_KEY = "6b87885fb717463284324551210102";
 
@@ -48,12 +48,13 @@ const App = () => {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.main}>
-        {weather && (
+        {weather ? (
           <>
             <UnitPicker unitMetric={unitMetric} setUnicMetric={setUnicMetric} />
+            <ReloadIcon load={()=> load()} />
             <WeatherInfo weather={weather} unitMetric={unitMetric} />
           </>
-        )}
+        ):(<ActivityIndicator  size="large" />)}
       </View>
     </View>
   );
